@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import axios, { AxiosError, CanceledError } from "axios";
+import PokemonCard from "./PokemonCard";
 
-interface Pokemon {
+export interface Pokemon {
   id: number;
   name: string;
+  sprites: {
+    other: {
+      "official-artwork": {
+        front_default: string;
+      };
+    };
+  };
 }
 
 interface FetchResults {
@@ -40,20 +48,6 @@ const PokemonGrid = () => {
         }, Promise.resolve());
 
         setPokemon(temp);
-
-        // await Promise.all(
-        //   data.results.map(async (res) => {
-        //     const poke = await axios.get<Pokemon>(res.url);
-        //     setPokemon((prev) => [...prev, poke.data]);
-        //   })
-        // );
-
-        // for (const res of data.results) {
-        //   const poke = await axios.get<Pokemon>(res.url, {
-        //     signal: controller.signal,
-        //   });
-        //   setPokemon((prev) => [...prev, poke.data]);
-        // }
       } catch (err) {
         if (err instanceof CanceledError) return;
         setError((err as AxiosError).message);
@@ -66,11 +60,11 @@ const PokemonGrid = () => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <ul>
+      <SimpleGrid columns={6} spacing={7}>
         {pokemon.map((mon) => (
-          <li key={mon.id}>{mon.name}</li>
+          <PokemonCard key={mon.id} pokemon={mon} />
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 };
