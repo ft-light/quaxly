@@ -4,6 +4,11 @@ import { SimpleGrid, Text } from "@chakra-ui/react";
 import axios, { AxiosError, CanceledError } from "axios";
 import PokemonCard from "./PokemonCard";
 
+export interface PokemonType {
+  slot: number;
+  type: { name: string };
+}
+
 export interface Pokemon {
   id: number;
   name: string;
@@ -14,6 +19,7 @@ export interface Pokemon {
       };
     };
   };
+  types: PokemonType[];
 }
 
 interface FetchResults {
