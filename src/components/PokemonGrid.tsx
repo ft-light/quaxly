@@ -3,6 +3,7 @@ import apiClient from "../services/api-client";
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import axios, { AxiosError, CanceledError } from "axios";
 import PokemonCard from "./PokemonCard";
+import PokemonCardSkeleton from "./PokemonCardSkeleton";
 
 export interface PokemonType {
   slot: number;
@@ -35,10 +36,13 @@ interface FetchPokemonResponse {
 const PokemonGrid = () => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   useEffect(() => {
     const temp: Pokemon[] = [];
     const controller = new AbortController();
+    setIsLoading(true);
 
     (async () => {
       try {
@@ -54,9 +58,11 @@ const PokemonGrid = () => {
         }, Promise.resolve());
 
         setPokemon(temp);
+        setIsLoading(false);
       } catch (err) {
         if (err instanceof CanceledError) return;
         setError((err as AxiosError).message);
+        setIsLoading(false);
       }
     })();
 
@@ -66,7 +72,9 @@ const PokemonGrid = () => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={6} spacing={7}>
+      <SimpleGrid columns={6} spacing={5}>
+        {isLoading &&
+          skeletons.map((skeleton) => <PokemonCardSkeleton key={skeleton} />)}
         {pokemon.map((mon) => (
           <PokemonCard key={mon.id} pokemon={mon} />
         ))}

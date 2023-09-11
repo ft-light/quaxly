@@ -8,7 +8,7 @@ interface Props {
 
 const PokemonCard = ({ pokemon }: Props) => {
   return (
-    <Card borderRadius={10}>
+    <Card width="200px" borderRadius={10}>
       <Image src={pokemon.sprites.other["official-artwork"].front_default} />
       <CardBody>
         <Heading fontSize="2xl">
