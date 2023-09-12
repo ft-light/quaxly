@@ -4,7 +4,7 @@ import PokemonCardSkeleton from "./PokemonCardSkeleton";
 import usePokemon from "../hooks/usePokemon";
 
 const PokemonGrid = () => {
-  const { pokemon, error, isLoading } = usePokemon();
+  const { data, error, isLoading } = usePokemon();
   const skeletons = [...Array(20).keys()];
 
   return (
@@ -12,7 +12,7 @@ const PokemonGrid = () => {
       {error && <Text>{error}</Text>}
       <SimpleGrid columns={6} spacing={5}>
         {isLoading && skeletons.map((i) => <PokemonCardSkeleton key={i} />)}
-        {pokemon.map((mon) => (
+        {data.map((mon) => (
           <PokemonCard key={mon.id} pokemon={mon} />
         ))}
       </SimpleGrid>

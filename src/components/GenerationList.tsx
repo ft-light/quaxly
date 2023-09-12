@@ -3,11 +3,11 @@ import useGeneration from "../hooks/useGeneration";
 import VersionGroupList from "./VersionGroupList";
 
 const GenerationList = () => {
-  const { generation } = useGeneration();
+  const { data } = useGeneration();
 
   return (
     <List spacing={2}>
-      {generation
+      {data
         .map((gen) => (
           <ListItem key={gen.id}>
             <HStack fontSize="xs">

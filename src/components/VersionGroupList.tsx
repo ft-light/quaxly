@@ -1,5 +1,5 @@
 import { Button, ListItem } from "@chakra-ui/react";
-import { Name } from "../hooks/useGeneration";
+import { Name } from "../hooks/useData";
 
 interface Props {
   version: Name[];
