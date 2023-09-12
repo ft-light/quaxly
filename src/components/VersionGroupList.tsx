@@ -1,3 +1,4 @@
+import { Button, ListItem } from "@chakra-ui/react";
 import { Name } from "../hooks/useGeneration";
 
 interface Props {
@@ -34,7 +35,13 @@ const VersionGroupList = ({ version }: Props) => {
     "the-indigo-disk": "The Indigo Disk",
   };
 
-  return version.map((ver) => <li>{versionMap[ver.name]}</li>);
+  return version.map((ver) => (
+    <ListItem key={ver.name}>
+      <Button fontSize="xs" variant="link">
+        {versionMap[ver.name]}
+      </Button>
+    </ListItem>
+  ));
 };
 
 export default VersionGroupList;

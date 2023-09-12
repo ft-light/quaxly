@@ -10,7 +10,7 @@ const PokemonGrid = () => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={5} spacing={5} padding={5}>
+      <SimpleGrid columns={6} spacing={5}>
         {isLoading && skeletons.map((i) => <PokemonCardSkeleton key={i} />)}
         {pokemon.map((mon) => (
           <PokemonCard key={mon.id} pokemon={mon} />
