@@ -1,9 +1,12 @@
-import { HStack, List, ListItem, Text } from "@chakra-ui/react";
+import { HStack, List, ListItem, Spinner, Text } from "@chakra-ui/react";
 import useGeneration from "../hooks/useGeneration";
 import VersionGroupList from "./VersionGroupList";
 
 const GenerationList = () => {
-  const { data } = useGeneration();
+  const { data, error, isLoading } = useGeneration();
+
+  if (error) return null;
+  if (isLoading) return <Spinner size="lg" />;
 
   return (
     <List spacing={2}>
