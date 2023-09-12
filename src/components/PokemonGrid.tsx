@@ -37,7 +37,7 @@ const PokemonGrid = () => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const skeletons = [...Array(20).keys()];
 
   useEffect(() => {
     const temp: Pokemon[] = [];
@@ -72,9 +72,8 @@ const PokemonGrid = () => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={6} spacing={5}>
-        {isLoading &&
-          skeletons.map((skeleton) => <PokemonCardSkeleton key={skeleton} />)}
+      <SimpleGrid columns={5} spacing={5} padding={5}>
+        {isLoading && skeletons.map((i) => <PokemonCardSkeleton key={i} />)}
         {pokemon.map((mon) => (
           <PokemonCard key={mon.id} pokemon={mon} />
         ))}
