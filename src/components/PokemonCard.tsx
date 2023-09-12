@@ -1,6 +1,6 @@
 import { Card, CardBody, Heading, Image, Text } from "@chakra-ui/react";
-import { Pokemon } from "./PokemonGrid";
 import PokemonTypeList from "./PokemonTypeList";
+import { Pokemon } from "../hooks/usePokemon";
 
 interface Props {
   pokemon: Pokemon;
