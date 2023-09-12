@@ -3,18 +3,22 @@ import apiClient from "../services/api-client";
 import axios, { AxiosError, CanceledError } from "axios";
 
 interface Language {
-  language: { name: string };
+  language: Name;
+  name: string;
+}
+
+export interface Name {
   name: string;
 }
 
 interface Generation {
   id: number;
   names: Language[];
-  version_groups: { name: string }[];
+  main_region: Name;
+  version_groups: Name[];
 }
 
 interface FetchResults {
-  name: string;
   url: string;
 }
 

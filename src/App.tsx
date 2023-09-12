@@ -10,16 +10,17 @@ function App() {
         base: `'nav' 'main'`,
         lg: `'nav nav' 'aside main'`,
       }}
+      templateColumns="220px 1fr"
     >
       <GridItem area="nav" p="10px">
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside">
+        <GridItem area="aside" p="10px">
           <GenerationList />
         </GridItem>
       </Show>
-      <GridItem area="main">
+      <GridItem area="main" p="10px">
         <PokemonGrid />
       </GridItem>
     </Grid>
