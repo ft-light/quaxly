@@ -1,6 +1,6 @@
 import { Card, CardBody, Heading, Image, Text } from "@chakra-ui/react";
 import PokemonTypeList from "./PokemonTypeList";
-import { Pokemon } from "../hooks/usePokemon";
+import { Pokemon } from "../hooks/usePokedex";
 
 interface Props {
   pokemon: Pokemon;

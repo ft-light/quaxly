@@ -33,7 +33,7 @@ interface PokemonSpecies {
   }[];
 }
 
-interface Pokemon {
+export interface Pokemon {
   id: number;
   name: string;
   sprites: {
@@ -46,7 +46,7 @@ interface Pokemon {
   types: PokemonType[];
 }
 
-interface PokemonType {
+export interface PokemonType {
   slot: number;
   type: Name;
 }

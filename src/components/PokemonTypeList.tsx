@@ -1,5 +1,5 @@
 import { HStack, Text } from "@chakra-ui/react";
-import { PokemonType } from "../hooks/usePokemon";
+import { PokemonType } from "../hooks/usePokedex";
 
 interface Props {
   types: PokemonType[];

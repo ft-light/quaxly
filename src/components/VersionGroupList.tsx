@@ -1,8 +1,8 @@
 import { Button, ListItem } from "@chakra-ui/react";
-import { Name } from "../hooks/useData";
+import { FetchResults } from "../hooks/useGeneration";
 
 interface Props {
-  version: Name[];
+  version: FetchResults[];
 }
 const VersionGroupList = ({ version }: Props) => {
   const versionMap: { [key: string]: string } = {
