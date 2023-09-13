@@ -1,10 +1,10 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import PokemonCard from "./PokemonCard";
 import PokemonCardSkeleton from "./PokemonCardSkeleton";
-import usePokemon from "../hooks/usePokemon";
+import usePokedex from "../hooks/usePokedex";
 
 const PokemonGrid = () => {
-  const { data, error, isLoading } = usePokemon();
+  const { data, error, isLoading } = usePokedex("/pokedex/7");
   const skeletons = [...Array(20).keys()];
 
   return (
