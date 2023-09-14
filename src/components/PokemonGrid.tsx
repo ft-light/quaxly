@@ -1,14 +1,17 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid, TabPanel, Text } from "@chakra-ui/react";
 import PokemonCard from "./PokemonCard";
 import PokemonCardSkeleton from "./PokemonCardSkeleton";
 import usePokedex from "../hooks/usePokedex";
+import { FetchResults } from "../hooks/useGeneration";
 
 interface Props {
+  selectedVersion: FetchResults[];
   selectedPokedex: string;
 }
 
-const PokemonGrid = ({ selectedPokedex }: Props) => {
-  const { data, error, isLoading } = usePokedex(selectedPokedex, [
+const PokemonGrid = ({ selectedVersion, selectedPokedex }: Props) => {
+  const { data, isLoading, error } = usePokedex(selectedPokedex, [
+    selectedVersion,
     selectedPokedex,
   ]);
   const skeletons = [...Array(20).keys()];
@@ -16,12 +19,14 @@ const PokemonGrid = ({ selectedPokedex }: Props) => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={6} spacing={5}>
-        {isLoading && skeletons.map((i) => <PokemonCardSkeleton key={i} />)}
-        {data.map((mon) => (
-          <PokemonCard key={mon.id} pokemon={mon} />
-        ))}
-      </SimpleGrid>
+      <TabPanel paddingX={0}>
+        <SimpleGrid columns={6} spacing={5}>
+          {isLoading && skeletons.map((i) => <PokemonCardSkeleton key={i} />)}
+          {data.map((mon) => (
+            <PokemonCard key={mon.id} pokemon={mon} />
+          ))}
+        </SimpleGrid>
+      </TabPanel>
     </>
   );
 };

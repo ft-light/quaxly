@@ -50,7 +50,7 @@ export interface PokemonType {
   type: Name;
 }
 
-const usePokedex = (endpoint: string, deps?: string[]) => {
+const usePokedex = (endpoint: string, deps?: any[]) => {
   const [data, setData] = useState<Pokemon[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);

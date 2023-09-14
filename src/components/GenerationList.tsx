@@ -3,10 +3,10 @@ import useGeneration from "../hooks/useGeneration";
 import VersionGroupList from "./VersionGroupList";
 
 interface Props {
-  onSelectPokedex: (string: string) => void;
+  getPokedexes: (string: string) => void;
 }
 
-const GenerationList = ({ onSelectPokedex }: Props) => {
+const GenerationList = ({ getPokedexes }: Props) => {
   const { data, error, isLoading } = useGeneration();
 
   if (error) return null;
@@ -33,7 +33,7 @@ const GenerationList = ({ onSelectPokedex }: Props) => {
             <List paddingLeft={2}>
               <VersionGroupList
                 version={gen.version_groups}
-                clickEvent={onSelectPokedex}
+                clickEvent={getPokedexes}
               />
             </List>
           </ListItem>

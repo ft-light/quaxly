@@ -26,11 +26,6 @@ interface Generation {
   version_groups: FetchResults[];
 }
 
-// interface VersionGroup {
-//   id: number;
-//   pokedexes: FetchResults[];
-// }
-
 const useGeneration = () => {
   const [data, setData] = useState<Generation[]>([]);
   const [error, setError] = useState("");
@@ -56,7 +51,6 @@ const useGeneration = () => {
 
         setData(temp);
         setIsLoading(false);
-        console.log(temp);
       } catch (err) {
         if (err instanceof CanceledError) return;
         setError((err as AxiosError).message);

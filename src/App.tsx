@@ -1,11 +1,12 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import PokemonGrid from "./components/PokemonGrid";
 import GenerationList from "./components/GenerationList";
-import useSelectedPokedex from "./hooks/useSelectedPokedex";
+import PokemonContainer from "./components/PokemonContainer";
+import useVersion from "./hooks/useVersion";
 
 function App() {
-  const { selectedPokedex, clickEventFunction } = useSelectedPokedex();
+  const { selectedVersion, getPokedexes, selectedPokedex, showPokedex } =
+    useVersion();
 
   return (
     <Grid
@@ -20,11 +21,15 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" p="10px">
-          <GenerationList onSelectPokedex={clickEventFunction} />
+          <GenerationList getPokedexes={getPokedexes} />
         </GridItem>
       </Show>
       <GridItem area="main" p="10px">
-        <PokemonGrid selectedPokedex={selectedPokedex} />
+        <PokemonContainer
+          selectedVersion={selectedVersion}
+          selectedPokedex={selectedPokedex}
+          showPokedex={showPokedex}
+        />
       </GridItem>
     </Grid>
   );

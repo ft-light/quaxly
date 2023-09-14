@@ -30,7 +30,7 @@ const VersionGroupList = ({ version, clickEvent }: Props) => {
     "sword-shield": "Sword & Shield",
     "the-isle-of-armor": "The Isle Of Armor",
     "the-crown-tundra": "The Crown Tundra",
-    // "brilliant-diamond-and-shining-pearl": "Brilliant Diamond & Shining Pearl",
+    "brilliant-diamond-and-shining-pearl": "Brilliant Diamond & Shining Pearl",
     "legends-arceus": "Legends: Arceus",
     "scarlet-violet": "Scarlet & Violet",
     "the-teal-mask": "The Teal Mask",
