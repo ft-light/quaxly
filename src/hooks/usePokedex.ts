@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import apiClient from "../services/api-client";
 import axios, { AxiosError, CanceledError } from "axios";
 
 export interface Name {
@@ -51,51 +50,57 @@ export interface PokemonType {
   type: Name;
 }
 
-const usePokedex = (endpoint: string) => {
+const usePokedex = (endpoint: string, deps?: string[]) => {
   const [data, setData] = useState<Pokemon[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const temp: Pokemon[] = [];
-    const controller = new AbortController();
-    const signal = {
-      signal: controller.signal,
-    };
-    setIsLoading(true);
+  useEffect(
+    () => {
+      const temp: Pokemon[] = [];
+      const controller = new AbortController();
+      const signal = {
+        signal: controller.signal,
+      };
+      setIsLoading(true);
+      setData([]);
 
-    (async () => {
-      try {
-        const { data } = await apiClient.get<FetchResponse>(endpoint, signal);
-        await data.pokemon_entries.slice(0, 20).reduce(async (a, res) => {
-          await a;
+      (async () => {
+        try {
+          const { data } = await axios.get<FetchResponse>(endpoint, signal);
+          await data.pokemon_entries.slice(0, 20).reduce(async (a, res) => {
+            await a;
 
-          const { data: s } = await axios.get<PokemonSpecies>(
-            res.pokemon_species.url,
-            signal
-          );
+            const { data: s } = await axios.get<PokemonSpecies>(
+              res.pokemon_species.url,
+              signal
+            );
 
-          const defaultp = s.varieties.filter((variety) => variety.is_default);
+            const defaultp = s.varieties.filter(
+              (variety) => variety.is_default
+            );
 
-          const { data: p } = await axios.get<Pokemon>(
-            defaultp[0].pokemon.url,
-            signal
-          );
+            const { data: p } = await axios.get<Pokemon>(
+              defaultp[0].pokemon.url,
+              signal
+            );
 
-          temp.push(p);
-        }, Promise.resolve());
+            temp.push(p);
+          }, Promise.resolve());
 
-        setData(temp);
-        setIsLoading(false);
-      } catch (err) {
-        if (err instanceof CanceledError) return;
-        setError((err as AxiosError).message);
-        setIsLoading(false);
-      }
-    })();
+          setData(temp);
+          setIsLoading(false);
+        } catch (err) {
+          if (err instanceof CanceledError) return;
+          setError((err as AxiosError).message);
+          setIsLoading(false);
+        }
+      })();
 
-    return () => controller.abort();
-  }, []);
+      return () => controller.abort();
+    },
+    deps ? [...deps] : []
+  );
 
   return { data, error, isLoading };
 };

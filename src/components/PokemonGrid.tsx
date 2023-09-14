@@ -3,8 +3,14 @@ import PokemonCard from "./PokemonCard";
 import PokemonCardSkeleton from "./PokemonCardSkeleton";
 import usePokedex from "../hooks/usePokedex";
 
-const PokemonGrid = () => {
-  const { data, error, isLoading } = usePokedex("/pokedex/7");
+interface Props {
+  selectedPokedex: string;
+}
+
+const PokemonGrid = ({ selectedPokedex }: Props) => {
+  const { data, error, isLoading } = usePokedex(selectedPokedex, [
+    selectedPokedex,
+  ]);
   const skeletons = [...Array(20).keys()];
 
   return (

@@ -3,8 +3,10 @@ import { FetchResults } from "../hooks/useGeneration";
 
 interface Props {
   version: FetchResults[];
+  clickEvent: (string: string) => void;
 }
-const VersionGroupList = ({ version }: Props) => {
+
+const VersionGroupList = ({ version, clickEvent }: Props) => {
   const versionMap: { [key: string]: string } = {
     "red-blue": "Red & Blue",
     yellow: "Yellow",
@@ -28,7 +30,7 @@ const VersionGroupList = ({ version }: Props) => {
     "sword-shield": "Sword & Shield",
     "the-isle-of-armor": "The Isle Of Armor",
     "the-crown-tundra": "The Crown Tundra",
-    "brilliant-diamond-and-shining-pearl": "Brilliant Diamond & Shining Pearl",
+    // "brilliant-diamond-and-shining-pearl": "Brilliant Diamond & Shining Pearl",
     "legends-arceus": "Legends: Arceus",
     "scarlet-violet": "Scarlet & Violet",
     "the-teal-mask": "The Teal Mask",
@@ -37,7 +39,13 @@ const VersionGroupList = ({ version }: Props) => {
 
   return version.map((ver) => (
     <ListItem key={ver.name}>
-      <Button fontSize="xs" variant="link">
+      <Button
+        fontSize="xs"
+        variant="link"
+        onClick={() => {
+          clickEvent(ver.url);
+        }}
+      >
         {versionMap[ver.name]}
       </Button>
     </ListItem>

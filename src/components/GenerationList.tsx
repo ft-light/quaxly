@@ -2,7 +2,11 @@ import { HStack, List, ListItem, Spinner, Text } from "@chakra-ui/react";
 import useGeneration from "../hooks/useGeneration";
 import VersionGroupList from "./VersionGroupList";
 
-const GenerationList = () => {
+interface Props {
+  onSelectPokedex: (string: string) => void;
+}
+
+const GenerationList = ({ onSelectPokedex }: Props) => {
   const { data, error, isLoading } = useGeneration();
 
   if (error) return null;
@@ -27,7 +31,10 @@ const GenerationList = () => {
               </Text>
             </HStack>
             <List paddingLeft={2}>
-              <VersionGroupList version={gen.version_groups} />
+              <VersionGroupList
+                version={gen.version_groups}
+                clickEvent={onSelectPokedex}
+              />
             </List>
           </ListItem>
         ))
