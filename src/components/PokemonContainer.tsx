@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanels, Tabs } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { FetchResults } from "../hooks/useGeneration";
 import PokemonGrid from "./PokemonGrid";
 
@@ -6,13 +6,16 @@ interface Props {
   selectedVersion: FetchResults[];
   selectedPokedex: string;
   showPokedex: (url: string) => void;
+  isNational: boolean;
 }
 
 const PokemonContainer = ({
   selectedVersion,
   selectedPokedex,
   showPokedex,
+  isNational,
 }: Props) => {
+  if (isNational) return <PokemonGrid selectedPokedex={selectedPokedex} />;
   return (
     <Tabs onChange={(i) => showPokedex(selectedVersion[i].url)}>
       <TabList>
@@ -22,11 +25,9 @@ const PokemonContainer = ({
       </TabList>
       <TabPanels>
         {selectedVersion.map((v) => (
-          <PokemonGrid
-            key={v.name}
-            selectedVersion={selectedVersion}
-            selectedPokedex={selectedPokedex}
-          />
+          <TabPanel key={v.name} paddingX={0}>
+            <PokemonGrid selectedPokedex={selectedPokedex} />
+          </TabPanel>
         ))}
       </TabPanels>
     </Tabs>

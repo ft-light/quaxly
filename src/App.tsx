@@ -5,8 +5,14 @@ import PokemonContainer from "./components/PokemonContainer";
 import useVersion from "./hooks/useVersion";
 
 function App() {
-  const { selectedVersion, getPokedexes, selectedPokedex, showPokedex } =
-    useVersion();
+  const {
+    selectedVersion,
+    getPokedexes,
+    selectedPokedex,
+    showPokedex,
+    isNational,
+    getDefaultPokedex,
+  } = useVersion();
 
   return (
     <Grid
@@ -21,7 +27,11 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" p="10px">
-          <GenerationList getPokedexes={getPokedexes} />
+          <GenerationList
+            getPokedexes={getPokedexes}
+            isNational={isNational}
+            getDefaultPokedex={getDefaultPokedex}
+          />
         </GridItem>
       </Show>
       <GridItem area="main" p="10px">
@@ -29,6 +39,7 @@ function App() {
           selectedVersion={selectedVersion}
           selectedPokedex={selectedPokedex}
           showPokedex={showPokedex}
+          isNational={isNational}
         />
       </GridItem>
     </Grid>

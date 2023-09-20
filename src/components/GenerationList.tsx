@@ -1,12 +1,25 @@
-import { HStack, List, ListItem, Spinner, Text } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  List,
+  ListItem,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import useGeneration from "../hooks/useGeneration";
 import VersionGroupList from "./VersionGroupList";
 
 interface Props {
   getPokedexes: (string: string) => void;
+  isNational: boolean;
+  getDefaultPokedex: () => void;
 }
 
-const GenerationList = ({ getPokedexes }: Props) => {
+const GenerationList = ({
+  getPokedexes,
+  isNational,
+  getDefaultPokedex,
+}: Props) => {
   const { data, error, isLoading } = useGeneration();
 
   if (error) return null;
@@ -14,6 +27,16 @@ const GenerationList = ({ getPokedexes }: Props) => {
 
   return (
     <List spacing={2}>
+      <ListItem>
+        <Button
+          fontWeight={isNational ? "bold" : "normal"}
+          fontSize="md"
+          variant="link"
+          onClick={getDefaultPokedex}
+        >
+          National Dex
+        </Button>
+      </ListItem>
       {data
         .map((gen) => (
           <ListItem key={gen.id}>
