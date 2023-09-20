@@ -12,6 +12,7 @@ function App() {
     showPokedex,
     isNational,
     getDefaultPokedex,
+    tabIndex,
   } = useVersion();
 
   return (
@@ -40,6 +41,7 @@ function App() {
           selectedPokedex={selectedPokedex}
           showPokedex={showPokedex}
           isNational={isNational}
+          tabIndex={tabIndex}
         />
       </GridItem>
     </Grid>

@@ -9,8 +9,9 @@ interface VersionGroup {
 const useVersion = () => {
   const defaultp = "https://pokeapi.co/api/v2/pokedex/1";
   const [selectedVersion, setSelectedVersion] = useState<FetchResults[]>([]);
-  const [selectedPokedex, setSelectedPokedex] = useState(defaultp);
+  const [selectedPokedex, setSelectedPokedex] = useState<string>(defaultp);
   const [isNational, setIsNational] = useState(true);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const getPokedexes = async (url: string) => {
     const { data } = await axios.get<VersionGroup>(url);
@@ -20,10 +21,12 @@ const useVersion = () => {
     setSelectedPokedex(data.pokedexes[0].url);
     setSelectedVersion(data.pokedexes);
     setIsNational(false);
+    setTabIndex(0);
   };
 
-  const showPokedex = (url: string) => {
-    setSelectedPokedex(url);
+  const showPokedex = (index: number) => {
+    setSelectedPokedex(selectedVersion[index].url);
+    setTabIndex(index);
   };
 
   const getDefaultPokedex = () => {
@@ -38,6 +41,7 @@ const useVersion = () => {
     showPokedex,
     isNational,
     getDefaultPokedex,
+    tabIndex,
   };
 };
 

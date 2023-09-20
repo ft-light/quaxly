@@ -5,8 +5,9 @@ import PokemonGrid from "./PokemonGrid";
 interface Props {
   selectedVersion: FetchResults[];
   selectedPokedex: string;
-  showPokedex: (url: string) => void;
+  showPokedex: (index: number) => void;
   isNational: boolean;
+  tabIndex: number;
 }
 
 const PokemonContainer = ({
@@ -14,10 +15,11 @@ const PokemonContainer = ({
   selectedPokedex,
   showPokedex,
   isNational,
+  tabIndex,
 }: Props) => {
   if (isNational) return <PokemonGrid selectedPokedex={selectedPokedex} />;
   return (
-    <Tabs onChange={(i) => showPokedex(selectedVersion[i].url)}>
+    <Tabs onChange={(i) => showPokedex(i)} index={tabIndex}>
       <TabList>
         {selectedVersion.map((v) => (
           <Tab key={v.name}>{v.name}</Tab>
